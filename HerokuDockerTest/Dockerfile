@@ -7,8 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY *.sln .
-COPY ["*/HerokuDockerTest/HerokuDockerTest.csproj"]
+COPY ["src/HerokuDockerTest/HerokuDockerTest.csproj", "HerokuDockerTest/"]
 RUN dotnet restore "HerokuDockerTest/HerokuDockerTest.csproj"
 COPY . .
 WORKDIR "/src/HerokuDockerTest"
