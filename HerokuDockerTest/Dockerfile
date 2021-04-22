@@ -10,30 +10,30 @@ WORKDIR /src
 RUN pwd
 COPY ["src/HerokuDockerTest/HerokuDockerTest.csproj", "HerokuDockerTest/"]
 
-RUN pwd
+RUN pwd #1
 
 RUN dotnet restore "HerokuDockerTest/HerokuDockerTest.csproj"
 COPY . .
 
-RUN pwd
+RUN pwd #2
 
 WORKDIR "/src/HerokuDockerTest"
 
-RUN pwd
+RUN pwd #3
 
 RUN dotnet build "HerokuDockerTest.csproj" -c Release -o /app/build
 
-RUN pwd
+RUN pwd #4
 
 FROM build AS publish
 RUN dotnet publish "HerokuDockerTest.csproj" -c Release -o /app/publish
 
-RUN pwd
+RUN pwd #5
 
 FROM base AS final
 WORKDIR /app
 
-RUN pwd
+RUN pwd #6
 
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "HerokuDockerTest.dll"]
